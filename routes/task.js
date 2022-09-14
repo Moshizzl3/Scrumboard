@@ -20,7 +20,7 @@ taskRouter.get("/tasks/:id", async (req, res) => {
 taskRouter.post("/tasks", (req, res) => {
   const body = { ...req.body };
   dbConnection.promise()
-    .query(`INSERT INTO TASK (creation_date, description, estimated_time, name, status, time_spent, user_story_id, user_id) 
+    .query(`INSERT INTO task (creation_date, description, estimated_time, name, status, time_spent, user_story_id, user_id) 
             VALUES('${body.creationDate}', '${body.description}', ${body.estimatedTime}, '${body.name}','${body.status}', 
             ${body.timeSpent}, ${body.userStoryId}, ${body.userId})`);
 });
