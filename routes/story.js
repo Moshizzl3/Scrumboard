@@ -11,7 +11,12 @@ storyRouter.get("/stories", async (req, res)=>{
     res.send(stories)
 })
 
-storyRouter.get("/stories/:id", (req, res)=>{
+storyRouter.get("/stories/:id", async (req, res)=>{
+    const result = await dbConnection
+    .promise()
+    .query(`SELECT * FROM user_story WHERE user_story_id = ${req.params.id}`);
+  const story = result[0];
+  res.send(story);
     
 })
 
