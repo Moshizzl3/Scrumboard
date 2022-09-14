@@ -1,11 +1,14 @@
 import { Router } from "express";
+import { dbConnection } from "../data/db.js";
 
 export const storyRouter = Router();
 
 
-storyRouter.get("/stories", (req, res)=>{
+storyRouter.get("/stories", async (req, res)=>{
     
-    res.send("stories")
+    const result = await dbConnection.promise().query(`SELECT * FROM user_story`)
+    const stories = result[0];
+    res.send(stories)
 })
 
 storyRouter.get("/stories/:id", (req, res)=>{
