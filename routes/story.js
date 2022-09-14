@@ -29,5 +29,9 @@ storyRouter.patch("/stories/:id", (req, res)=>{
 })
 
 storyRouter.delete("/stories/:id", (req, res)=>{
+  dbConnection
+    .promise()
+    .query(`DELETE FROM user_story WHERE user_story_id = ${req.params.id}`);
+  res.send(`user story with id: ${req.params.id} is now deleted`);
     
 })

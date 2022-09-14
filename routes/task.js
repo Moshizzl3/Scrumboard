@@ -30,6 +30,6 @@ taskRouter.patch("/tasks/:id", (req, res) => {});
 taskRouter.delete("/tasks/:id", (req, res) => {
   dbConnection
     .promise()
-    .query(`DELETE FROM TASK WHERE task_id = ${req.params.id}`);
+    .query(`DELETE FROM task WHERE task_id = ${req.params.id}`);
   res.send(`Task with id: ${req.params.id} is now deleted`);
 });
