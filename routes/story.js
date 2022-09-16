@@ -50,6 +50,6 @@ storyRouter.patch("/stories/:id", (req, res) => {}); //TODO
 storyRouter.delete("/stories/:id", (req, res) => {
   dbConnection
     .promise()
-    .query(`DELETE FROM user_story WHERE user_story_id = ?`, Number(req.params.id));
+    .query("DELETE FROM user_story WHERE user_story_id = ?", Number(req.params.id));
   res.status(200).send(`user story with id: ${req.params.id} is now deleted`);
 });

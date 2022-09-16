@@ -12,7 +12,7 @@ taskRouter.get("/tasks", async (req, res) => {
 taskRouter.get("/tasks/:id", async (req, res) => {
   const result = await dbConnection
     .promise()
-    .query(`SELECT * FROM TASK WHERE task_id = ${req.params.id}`);
+    .query("SELECT * FROM TASK WHERE task_id = ?", Number(req.params.id));
 
   const task = result[0];
   res.status(200).send(task);
@@ -28,10 +28,10 @@ taskRouter.post("/tasks", (req, res) => {
     function (error, results, fields) {
       const message = {
         message: `Task created with id: ${results.insertId}`,
-        data:{
+        data: {
           id: results.insertId,
-          ...body
-        }
+          ...body,
+        },
       };
       res.status(201).send(message);
     }
