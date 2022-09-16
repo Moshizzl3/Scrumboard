@@ -6,7 +6,7 @@ export const storyRouter = Router();
 storyRouter.get("/stories", async (req, res) => {
   const result = await dbConnection.promise().query(`SELECT * FROM user_story`);
   const stories = result[0];
-  res.send(stories);
+  res.status(200).send(stories);
 });
 
 storyRouter.get("/stories/:id", async (req, res) => {
@@ -14,7 +14,7 @@ storyRouter.get("/stories/:id", async (req, res) => {
     .promise()
     .query(`SELECT * FROM user_story WHERE user_story_id = ${req.params.id}`);
   const story = result[0];
-  res.send(story);
+  res.status(200).send(story);
 });
 
 storyRouter.post("/stories", (req, res) => {
@@ -23,14 +23,14 @@ storyRouter.post("/stories", (req, res) => {
     `INSERT INTO user_story (creation_date, description, name, status, story_points, sprint_id) 
       VALUES('${body.creationDate}', '${body.description}', '${body.name}', '${body.status}', ${body.storyPoints}, ${body.sprintId})`
   );
-  res.send(body)
+  res.status(201).send(body)
 });
 
-storyRouter.patch("/stories/:id", (req, res) => {});
+storyRouter.patch("/stories/:id", (req, res) => {}); //TODO
 
 storyRouter.delete("/stories/:id", (req, res) => {
   dbConnection
     .promise()
     .query(`DELETE FROM user_story WHERE user_story_id = ${req.params.id}`);
-  res.send(`user story with id: ${req.params.id} is now deleted`);
+  res.status(200).send(`user story with id: ${req.params.id} is now deleted`);
 });
