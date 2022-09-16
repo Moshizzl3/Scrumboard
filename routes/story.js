@@ -20,9 +20,15 @@ storyRouter.get("/stories/:id", async (req, res) => {
 storyRouter.post("/stories", (req, res) => {
   const body = { ...req.body };
   dbConnection.query(
-    `INSERT INTO user_story (creation_date, description, name, status, story_points, sprint_id) 
-      VALUES('${body.creationDate}', '${body.description}', '${body.name}', '${body.status}', ${body.storyPoints}, ${body.sprintId})`,
-    body,
+    "INSERT INTO user_story (creation_date, description, name, status, story_points, sprint_id) VALUES(?,?,?,?,?,?)",
+    [
+      body.creationDate,
+      body.description,
+      body.name,
+      body.status,
+      body.storyPoints,
+      body.sprintId,
+    ],
     function (error, results, fields) {
       const message = {
         message: `Story created with id: ${results.insertId}`,
