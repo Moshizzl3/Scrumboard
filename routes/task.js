@@ -46,12 +46,13 @@ taskRouter.post("/tasks", (req, res) => {
   );
 });
 
-taskRouter.patch("/tasks/:id", (req, res) => {});
+taskRouter.patch("/tasks/:id", (req, res) => {}); //TODO
 
 taskRouter.delete("/tasks/:id", (req, res) => {
   dbConnection
     .promise()
-    .query(`DELETE FROM task WHERE task_id = ${req.params.id}`);
-
-  res.status(200).send(`Task with id: ${req.params.id} is now deleted`);
+    .query(`DELETE FROM task WHERE task_id = ?`, Number(req.params.id));
+  res
+    .status(200)
+    .send({ message: `Task with id: ${req.params.id} is now deleted` });
 });
