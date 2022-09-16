@@ -22,9 +22,17 @@ taskRouter.post("/tasks", (req, res) => {
   const body = { ...req.body };
   dbConnection.query(
     `INSERT INTO task (creation_date, description, estimated_time, name, status, time_spent, user_story_id, user_id) 
-            VALUES('${body.creationDate}', '${body.description}', ${body.estimatedTime}, '${body.name}','${body.status}', 
-            ${body.timeSpent}, ${body.userStoryId}, ${body.userId})`,
-    body,
+            VALUES(?,?,?,?,?,?,?,?)`,
+    [
+      body.creationDate,
+      body.description,
+      body.estimatedTime,
+      body.name,
+      body.status,
+      body.timeSpent,
+      body.userStoryId,
+      body.userId,
+    ],
     function (error, results, fields) {
       const message = {
         message: `Task created with id: ${results.insertId}`,
